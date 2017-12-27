@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+	 crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="navbar-fixed-top.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro|Bungee+Shade|Nunito:600" rel="stylesheet">
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-sm navbar-light fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="#">Eventer</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09"
+			 aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarsExample09">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="#">Home
+							<span class="sr-only">(current)</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Link</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link disabled" href="#">Disabled</a>
+					</li>
+				</ul>
+				<ul class="navbar-nav navbar-right">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Aleksa</a>
+						<div class="dropdown-menu" aria-labelledby="dropdown09">
+							<a class="dropdown-item" href="#">Settings</a>
+							<a class="dropdown-item" href="#">Profile</a>
+							<a class="dropdown-item" href="#">Logout</a>
+						</div>
+					</li>
+				</ul>
+				<a class="form-inline nav-link" href="#">
+					<button id="login-btn" class="btn btn-info" type="button">Log in</button>
+				</a>
+			</div>
+		</div>
+	</nav>
+
+	<main class="container event-container" role="main">
+		<!-- Example row of columns -->
+		<div class="row event">
+			<div class="col-md-2">
+				<div class="date">December 4</div>
+				<div class="day">Monday</div>
+				<div class="time">10:00 PM</div>
+			</div>
+			<div class="col-md-5">
+				<div class="location">Location:
+					<span>Somewhere</span>
+				</div>
+				<div class="title">Party like it's 10k BC and you don't know who you are</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="guests">
+							<span class="guests-header">Guests: </span> 42
+						</div>
+						<button class="btn btn-info btn-sm btn-join" type="submit">Join</button>
+					</div>
+				</div>
+
+			</div>
+			<div class="col-md-5">
+				<div class="description-header">Description:</div>
+				<p class="description">Quick brown fox jumps over the lazy dog. It jumped and flew like the greenest flim-flam.</p>
+			</div>
+		</div>
+
+		<div class="row event">
+			<div class="col-md-2">
+				<div class="day">Monday</div>
+				<div class="date">December 4</div>
+				<div class="time">10:00 PM</div>
+			</div>
+			<div class="col-md-5">
+				<div class="location">
+					<span class="at">@</span> Crna Kuća
+				</div>
+				<div class="title">Prednovogodišnji žur sa Tizzies!</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="guests">
+							Guests: 42
+						</div>
+						<button class="btn btn-info btn-sm btn-join" type="submit">Join</button>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<p class="description">Dakle, momci su obećali da će stići da se spreme ili da izađu na binu pa makar svirali i na plejbek, i da nadoknade to
+					što su otkazali prošlogodišnji koncert! </p>
+			</div>
+		</div>
+
+	</main>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+ crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+ crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+ crossorigin="anonymous"></script>
+
+</html>
