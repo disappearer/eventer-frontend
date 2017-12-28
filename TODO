@@ -9,5 +9,7 @@ Nav:
   ✔ Events link @done(17-12-28 18:10)
   ✔ New Event link @done(17-12-28 18:10)
   ✔ Brand link @done(17-12-28 18:10)
-  ☐ Login Button
-  ☐ dropdown menu
+  ✔ Login Button @done(17-12-28 20:26)
+  ✔ dropdown menu @done(17-12-28 20:26)
+  ☐ login callback
+  ☐ logout callback
