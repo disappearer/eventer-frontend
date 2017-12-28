@@ -7,6 +7,8 @@
   --powder-dark: #4da5aa;
   --tan: #f1aa7e;
   --gray: #f1f1ef;
+  --dark-gray: #dbdbdb;
+  --darker-gray: rgb(160, 160, 160);
   --shadow: rgb(41, 41, 41);
 }
 
@@ -17,10 +19,15 @@ body {
 }
 
 .navbar {
-  padding: 0.3em 0 0.3em 0;
+  padding: 0;
   -moz-box-shadow: 0 0 10px 0 var(--shadow);
   -webkit-box-shadow: 0 0 10px 0 var(--shadow);
   box-shadow: 0 0 10px 0 var(--shadow);
+}
+
+.navbar-light {
+  background-color: var(--gray);
+  /* color: var(--teal); */
 }
 
 .navbar-brand {
@@ -28,6 +35,27 @@ body {
   padding: 0;
   font-family: 'Bungee Shade';
   font-size: 2em;
+  color: var(--teal) !important;
+}
+
+.navbar-nav li {
+  padding: 5px;
+}
+
+.nav-link {
+  padding: 0;
+}
+
+.active {
+  background-color: var(--dark-gray);
+  border: 1px solid;
+  border-color: var(--darker-gray);
+  border-radius: 5px;
+}
+
+#future-checkbox-label {
+  margin-left: 5px;
+  padding-right: 0.5rem;
 }
 
 .dropdown-menu {
@@ -46,10 +74,6 @@ body {
 .dropdown-item:active {
   background-color: var(--powder-dark) !important;
   color: var(--gray);
-}
-
-.nav-link {
-  padding: 0;
 }
 
 .btn {
@@ -90,7 +114,6 @@ body {
 .event {
   margin: 15px 0 0 0;
   border-bottom: solid 1px var(--powder);
-  /*background-color: rgb(246, 246, 246);*/
   padding: 0;
   padding-bottom: 10px;
   color: white;
@@ -98,15 +121,6 @@ body {
 
 .event:last-child {
   border-bottom: none;
-}
-
-.navbar-light {
-  background-color: #f1f1ef;
-  color: var(--teal);
-}
-
-.navbar-brand {
-  color: var(--teal) !important;
 }
 
 .date {
