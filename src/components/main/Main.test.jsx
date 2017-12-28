@@ -8,19 +8,13 @@ import EventList from './event-list/EventList';
 enzyme.configure({ adapter: new Adapter() });
 
 describe('Main', () => {
-  it('should show event list if route is "/events/future"', () => {
+  it('should show event list if route is "/events"', () => {
     const wrapper = mount(
-      <MemoryRouter initialEntries={['/events/future']}>
-        <Main eventApi={{ future: () => Promise.resolve([]) }} />
-      </MemoryRouter>
-    );
-    expect(wrapper.find(EventList).length).toBe(1);
-  });
-
-  it('should show event list if route is "/events/all"', () => {
-    const wrapper = mount(
-      <MemoryRouter initialEntries={['/events/all']}>
-        <Main eventApi={{ all: () => Promise.resolve([]) }} />
+      <MemoryRouter initialEntries={['/events']}>
+        <Main
+          eventApi={{ future: () => Promise.resolve([]) }}
+          getFunction="future"
+        />
       </MemoryRouter>
     );
     expect(wrapper.find(EventList).length).toBe(1);
@@ -29,7 +23,10 @@ describe('Main', () => {
   it('should show "new event" form if route is "/events/new"', () => {
     const wrapper = mount(
       <MemoryRouter initialEntries={['/events/new']}>
-        <Main />
+        <Main
+          eventApi={{ future: () => Promise.resolve([]) }}
+          getFunction="future"
+        />
       </MemoryRouter>
     );
     expect(wrapper.find('NewEventForm').length).toBe(1);

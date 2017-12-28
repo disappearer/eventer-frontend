@@ -1,3 +1,13 @@
+☐ render brand svg from font
+
 EventItem:
   ✔ onJoin prop @done(17-12-27 17:24)
   ✔ joined prop @done(17-12-27 16:01)
+
+Nav:
+  ✔ Home link @done(17-12-28 18:10)
+  ✔ Events link @done(17-12-28 18:10)
+  ✔ New Event link @done(17-12-28 18:10)
+  ✔ Brand link @done(17-12-28 18:10)
+  ☐ Login Button
+  ☐ dropdown menu

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Nav from './components/nav/Nav';
 import Main from './components/main/Main';
@@ -43,8 +42,8 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Nav />
-        <Main eventApi={EventAPI} />
+        <Nav user="Nada" />
+        <Main eventApi={EventAPI} getFunction="future" />
       </div>
     );
   }

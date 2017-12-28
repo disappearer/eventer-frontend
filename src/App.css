@@ -1,28 +1,170 @@
-.App {
-  text-align: center;
+:root {
+  --tangerine: #e47323;
+  --tangerine-light: #eb8948;
+  --tangerine-dark: #d86b22;
+  --teal: #336b74;
+  --powder: #98bbbd;
+  --powder-dark: #4da5aa;
+  --tan: #f1aa7e;
+  --gray: #f1f1ef;
+  --dark-gray: #dbdbdb;
+  --darker-gray: rgb(160, 160, 160);
+  --shadow: rgb(41, 41, 41);
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+body {
+  background-color: var(--powder);
+  font-size: 15px;
+  font-family: 'Nunito';
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+.navbar {
+  padding: 0;
+  -moz-box-shadow: 0 0 10px 0 var(--shadow);
+  -webkit-box-shadow: 0 0 10px 0 var(--shadow);
+  box-shadow: 0 0 10px 0 var(--shadow);
+}
+
+.navbar-light {
+  background-color: var(--gray);
+  /* color: var(--teal); */
+}
+
+.navbar-brand {
+  margin-top: -5px;
+  padding: 0;
+  font-family: 'Bungee Shade';
+  font-size: 2em;
+  color: var(--teal) !important;
+}
+
+.navbar-nav li {
+  padding: 5px;
+}
+
+.nav-link {
+  padding: 0;
+}
+
+.active {
+  background-color: var(--dark-gray);
+  border: 1px solid;
+  border-color: var(--darker-gray);
+  border-radius: 5px;
+}
+
+#future-checkbox-label {
+  margin-left: 5px;
+  padding-right: 0.5rem;
+}
+
+.dropdown-menu {
+  background-color: var(--gray);
+}
+
+.dropdown-item {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.dropdown-item:hover {
+  background-color: var(--powder) !important;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.dropdown-item:active {
+  background-color: var(--powder-dark) !important;
+  color: var(--gray);
+}
+
+.btn {
+  background-color: var(--tangerine);
+  border-color: var(--tangerine-light);
+}
+
+.btn:hover {
+  background-color: var(--tangerine-light) !important;
+  border-color: var(--tangerine-light);
+}
+
+.btn:focus,
+.btn:active {
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none;
+}
+
+.btn:active {
+  background-color: var(--tangerine-dark) !important;
+  border-color: var(--tangerine-dark) !important;
+}
+
+#login-btn {
+  font-size: 1em;
+  padding: 0.2em 0.55em 0.3em 0.55em;
+}
+
+.event-container {
+  background-color: var(--teal);
+  padding: 10px 30px 0 30px;
+  -moz-box-shadow: 0 0 10px 0 var(--shadow);
+  -webkit-box-shadow: 0 0 10px 0 var(--shadow);
+  box-shadow: 0 0 10px 0 var(--shadow);
+}
+
+.event {
+  margin: 15px 0 0 0;
+  border-bottom: solid 1px var(--powder);
+  padding: 0;
+  padding-bottom: 10px;
   color: white;
 }
 
-.App-title {
-  font-size: 1.5em;
+.event:last-child {
+  border-bottom: none;
 }
 
-.App-intro {
-  font-size: large;
+.date {
+  color: var(--tan);
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.day {
+  font-size: 0.9em;
+}
+
+.time {
+  font-size: 1em;
+}
+
+.location {
+  color: var(--tan);
+}
+
+.at {
+  font-size: 1.3em;
+}
+
+.title {
+  font-size: 1.6em;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  font-family: 'Source Sans Pro';
+  border-radius: 5px;
+}
+
+.guests {
+  vertical-align: middle;
+  float: left;
+  color: var(--tan);
+}
+
+.btn-join {
+  float: right;
+}
+
+.description-header {
+  color: var(--tan);
+}
+
+.description {
+  font-family: 'Source Sans Pro';
 }

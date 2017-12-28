@@ -4,24 +4,26 @@ import PropTypes from 'prop-types';
 import EventList from './event-list/EventList';
 import NewEventForm from './NewEventForm';
 
-const Main = ({ eventApi }) => {
+const Main = ({ eventApi, getFunction }) => {
   return (
-    <main>
+    <main className="container event-container" role="main">
       <Switch>
-        <Route path="/events/new" component={NewEventForm} />
         <Route
-          path="/events/:time"
+          exact
+          path="/events"
           render={({ match }) => (
-            <EventList getEvents={eventApi[match.params.time].bind(eventApi)} />
+            <EventList getEvents={eventApi[getFunction].bind(eventApi)} />
           )}
         />
+        <Route path="/events/new" component={NewEventForm} />
       </Switch>
     </main>
   );
 };
 
 Main.propTypes = {
-  eventApi: PropTypes.object
+  eventApi: PropTypes.object.isRequired,
+  getFunction: PropTypes.string.isRequired
 };
 
 export default Main;

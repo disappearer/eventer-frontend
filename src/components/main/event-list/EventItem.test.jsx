@@ -3,7 +3,6 @@ import enzyme, { shallow } from 'enzyme';
 import sinon from 'sinon';
 import Adapter from 'enzyme-adapter-react-16';
 import EventItem from './EventItem';
-import { join } from 'path';
 
 enzyme.configure({ adapter: new Adapter() });
 
