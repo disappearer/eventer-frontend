@@ -54,7 +54,7 @@ const EventItem = props => {
             <button
               className="btn btn-info btn-sm btn-join"
               onClick={() => {
-                props.onJoinClick(props.joined ? true : false);
+                props.onJoinClick(props.event.id);
               }}
             >
               {props.joined ? 'Joined' : 'Join'}

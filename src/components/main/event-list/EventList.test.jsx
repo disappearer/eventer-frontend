@@ -45,17 +45,20 @@ const EventAPI = {
 };
 
 describe('EventList', () => {
-  it('should call getEvents() and show results if route is "/events/future"', async () => {
-    const wrapper = await mount(
-      <EventList getEvents={EventAPI.future.bind(EventAPI)} />
+  it('should call getEvents() and show results if route is "/events"', async () => {
+    let wrapper = await mount(
+      <EventList
+        getEvents={EventAPI.future.bind(EventAPI)}
+        onJoinClick={() => {}}
+      />
     );
     wrapper.update();
     expect(wrapper.find(EventItem).length).toEqual(3);
-  });
-
-  it('should call getEvents() and show results if route is "/events/all"', async () => {
-    const wrapper = await mount(
-      <EventList getEvents={EventAPI.all.bind(EventAPI)} />
+    wrapper = await mount(
+      <EventList
+        getEvents={EventAPI.all.bind(EventAPI)}
+        onJoinClick={() => {}}
+      />
     );
     wrapper.update();
     expect(wrapper.find(EventItem).length).toEqual(2);
@@ -63,9 +66,44 @@ describe('EventList', () => {
 
   it('should show "No events found." message if no events found', async () => {
     const wrapper = await mount(
-      <EventList getEvents={() => Promise.resolve([])} />
+      <EventList getEvents={() => Promise.resolve([])} onJoinClick={() => {}} />
     );
     wrapper.update();
     expect(wrapper.contains('No events found.')).toBe(true);
+  });
+
+  it(`should have an "eventsJoined" prop and use it to send
+      "joined" prop to appropriate EventItems`, async () => {
+    const wrapper = await mount(
+      <EventList
+        getEvents={EventAPI.future.bind(EventAPI)}
+        eventsJoined={['0', '2']}
+        onJoinClick={() => {}}
+      />
+    );
+    wrapper.update();
+    expect(wrapper.findWhere(n => n.key() === '0').prop('joined')).toEqual(
+      true
+    );
+    expect(wrapper.findWhere(n => n.key() === '1').prop('joined')).toEqual(
+      false
+    );
+    expect(wrapper.findWhere(n => n.key() === '2').prop('joined')).toEqual(
+      true
+    );
+  });
+
+  it('should forward prop.onJoinClick to EventItems', async () => {
+    const callback = () => {};
+    const wrapper = await mount(
+      <EventList
+        getEvents={EventAPI.future.bind(EventAPI)}
+        onJoinClick={callback}
+      />
+    );
+    wrapper.update();
+    wrapper.find(EventItem).forEach(eventItem => {
+      expect(eventItem.prop('onJoinClick')).toEqual(callback);
+    });
   });
 });

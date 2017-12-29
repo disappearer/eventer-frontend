@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import EventList from './event-list/EventList';
 import NewEventForm from './NewEventForm';
 
-const Main = ({ eventApi, getFunction }) => {
+const Main = ({ eventApi, getFunction, onJoinClick }) => {
   return (
     <main className="container event-container" role="main">
       <Switch>
@@ -12,7 +12,10 @@ const Main = ({ eventApi, getFunction }) => {
           exact
           path="/events"
           render={({ match }) => (
-            <EventList getEvents={eventApi[getFunction].bind(eventApi)} />
+            <EventList
+              getEvents={eventApi[getFunction].bind(eventApi)}
+              onJoinClick={onJoinClick}
+            />
           )}
         />
         <Route path="/events/new" component={NewEventForm} />
@@ -23,7 +26,8 @@ const Main = ({ eventApi, getFunction }) => {
 
 Main.propTypes = {
   eventApi: PropTypes.object.isRequired,
-  getFunction: PropTypes.string.isRequired
+  getFunction: PropTypes.string.isRequired,
+  onJoinClick: PropTypes.func.isRequired
 };
 
 export default Main;

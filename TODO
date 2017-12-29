@@ -1,8 +1,10 @@
 ☐ render brand svg from font
+☐ split css into modules according to components
 
-Main:
+App:
   ☐ should pass loginCallback to Nav if no user
   ☐ should pass logoutCallback to Nav if user logged in
+  ☐ should pass onJoinClick callback to Main
 
 EventItem:
   ✔ onJoin prop @done(17-12-27 17:24)
@@ -20,7 +22,7 @@ Nav:
   ✔ logout callback @done(17-12-29 16:48)
 
 EventList:
-  ☐ eventsJoined prop
+  ✔ eventsJoined prop @done(17-12-29 17:51)
+  ✔ onJoinClick prop forwarded to EventItem @done(17-12-29 18:46)
 
 NewEventForm:
-  
