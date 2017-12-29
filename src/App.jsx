@@ -42,7 +42,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Nav user="Nada" />
+        <Nav user="Nada" onCheckboxChange={value => console.log(value)} />
         <Main eventApi={EventAPI} getFunction="future" />
       </div>
     );

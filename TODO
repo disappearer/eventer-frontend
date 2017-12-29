@@ -1,5 +1,9 @@
 ☐ render brand svg from font
 
+Main:
+  ☐ should pass loginCallback to Nav if no user
+  ☐ should pass logoutCallback to Nav if user logged in
+
 EventItem:
   ✔ onJoin prop @done(17-12-27 17:24)
   ✔ joined prop @done(17-12-27 16:01)
@@ -11,5 +15,12 @@ Nav:
   ✔ Brand link @done(17-12-28 18:10)
   ✔ Login Button @done(17-12-28 20:26)
   ✔ dropdown menu @done(17-12-28 20:26)
-  ☐ login callback
-  ☐ logout callback
+  ✔ future checkbox toggle handler @done(17-12-29 16:48)
+  ✔ login callback @done(17-12-29 16:48)
+  ✔ logout callback @done(17-12-29 16:48)
+
+EventList:
+  ☐ eventsJoined prop
+
+NewEventForm:
+  
