@@ -45,28 +45,20 @@ const EventAPI = {
 };
 
 describe('EventList', () => {
-  it('should call getEvents() and show results if route is "/events"', async () => {
-    let wrapper = await mount(
-      <EventList
-        getEvents={EventAPI.future.bind(EventAPI)}
-        onJoinClick={() => {}}
-      />
+  it('should call api.future() and show results if route is "/events"', async () => {
+    const wrapper = await mount(
+      <EventList api={EventAPI} onJoinClick={() => {}} />
     );
     wrapper.update();
     expect(wrapper.find(EventItem).length).toEqual(3);
-    wrapper = await mount(
-      <EventList
-        getEvents={EventAPI.all.bind(EventAPI)}
-        onJoinClick={() => {}}
-      />
-    );
-    wrapper.update();
-    expect(wrapper.find(EventItem).length).toEqual(2);
   });
 
   it('should show "No events found." message if no events found', async () => {
     const wrapper = await mount(
-      <EventList getEvents={() => Promise.resolve([])} onJoinClick={() => {}} />
+      <EventList
+        api={{ future: () => Promise.resolve([]) }}
+        onJoinClick={() => {}}
+      />
     );
     wrapper.update();
     expect(wrapper.contains('No events found.')).toBe(true);
@@ -76,7 +68,7 @@ describe('EventList', () => {
       "joined" prop to appropriate EventItems`, async () => {
     const wrapper = await mount(
       <EventList
-        getEvents={EventAPI.future.bind(EventAPI)}
+        api={EventAPI}
         eventsJoined={['0', '2']}
         onJoinClick={() => {}}
       />
@@ -96,14 +88,23 @@ describe('EventList', () => {
   it('should forward prop.onJoinClick to EventItems', async () => {
     const callback = () => {};
     const wrapper = await mount(
-      <EventList
-        getEvents={EventAPI.future.bind(EventAPI)}
-        onJoinClick={callback}
-      />
+      <EventList api={EventAPI} onJoinClick={callback} />
     );
     wrapper.update();
     wrapper.find(EventItem).forEach(eventItem => {
       expect(eventItem.prop('onJoinClick')).toEqual(callback);
     });
+  });
+
+  it('should update events on checkbox change', async () => {
+    const wrapper = await mount(
+      <EventList api={EventAPI} onJoinClick={() => {}} />
+    );
+    wrapper.update();
+    const checkbox = wrapper.find('input');
+    checkbox.simulate('change', { target: { checked: false } });
+    await EventAPI.all();
+    wrapper.update();
+    expect(wrapper.find(EventItem).length).toEqual(2);
   });
 });

@@ -9,12 +9,11 @@ enzyme.configure({ adapter: new Adapter() });
 
 describe('Nav', () => {
   let wrapper;
-  let checkboxSpy = sinon.spy();
 
   beforeEach(() => {
     wrapper = mount(
       <MemoryRouter>
-        <Nav onCheckboxChange={checkboxSpy} />
+        <Nav />
       </MemoryRouter>
     );
   });
@@ -29,40 +28,13 @@ describe('Nav', () => {
     expect(eventLink.text()).toEqual('Events');
   });
 
-  it('should show "future" checkbox next to "Events" nav link if route is "/events"', () => {
-    expect(wrapper.find('#future-checkbox').length).toEqual(0);
-    wrapper = mount(
-      <MemoryRouter initialEntries={['/events']}>
-        <Nav onCheckboxChange={checkboxSpy} />
-      </MemoryRouter>
-    );
-    const futureCheckbox = wrapper.find('#future-checkbox');
-    expect(futureCheckbox.find('input').prop('type')).toEqual('checkbox');
-    expect(futureCheckbox.find('label#future-checkbox-label').text()).toEqual(
-      'future'
-    );
-  });
-
-  it('should call checkbox handler function on checkbox change', () => {
-    wrapper = mount(
-      <MemoryRouter initialEntries={['/events']}>
-        <Nav onCheckboxChange={checkboxSpy} />
-      </MemoryRouter>
-    );
-    const checkbox = wrapper.find('input');
-    checkbox.simulate('change', { target: { checked: false } });
-    expect(checkboxSpy.calledWith(false)).toBe(true);
-    checkbox.simulate('change', { target: { checked: true } });
-    expect(checkboxSpy.calledWith(true)).toBe(true);
-  });
-
   it('should show "New Event" nav link if props.user', () => {
     expect(
       wrapper.find('LiNavLink').find({ to: '/events/new' }).length
     ).toEqual(0);
     wrapper = mount(
       <MemoryRouter>
-        <Nav user="Aleksa" onCheckboxChange={checkboxSpy} />
+        <Nav user="Aleksa" />
       </MemoryRouter>
     );
     const eventLink = wrapper
@@ -75,7 +47,7 @@ describe('Nav', () => {
     expect(wrapper.find('button#login-btn').text()).toEqual('Log in');
     wrapper = mount(
       <MemoryRouter>
-        <Nav user="Aleksa" onCheckboxChange={checkboxSpy} />
+        <Nav user="Aleksa" />
       </MemoryRouter>
     );
     expect(wrapper.find('button#login-btn').length).toEqual(0);
@@ -85,7 +57,7 @@ describe('Nav', () => {
     const loginSpy = sinon.spy();
     wrapper = mount(
       <MemoryRouter>
-        <Nav onCheckboxChange={checkboxSpy} loginCallback={loginSpy} />
+        <Nav loginCallback={loginSpy} />
       </MemoryRouter>
     );
     const loginButton = wrapper.find('button#login-btn');
@@ -97,13 +69,13 @@ describe('Nav', () => {
     expect(wrapper.find('a.dropdown-toggle').length).toEqual(0);
     wrapper = mount(
       <MemoryRouter>
-        <Nav user="Aleksa" onCheckboxChange={checkboxSpy} />
+        <Nav user="Aleksa" />
       </MemoryRouter>
     );
     expect(wrapper.find('a.dropdown-toggle').text()).toEqual('Aleksa');
     wrapper = mount(
       <MemoryRouter>
-        <Nav user="Nada" onCheckboxChange={checkboxSpy} />
+        <Nav user="Nada" />
       </MemoryRouter>
     );
     expect(wrapper.find('a.dropdown-toggle').text()).toEqual('Nada');
@@ -116,11 +88,7 @@ describe('Nav', () => {
     const logoutSpy = sinon.spy();
     wrapper = mount(
       <MemoryRouter>
-        <Nav
-          user="Aleksa"
-          onCheckboxChange={checkboxSpy}
-          logoutCallback={logoutSpy}
-        />
+        <Nav user="Aleksa" logoutCallback={logoutSpy} />
       </MemoryRouter>
     );
     const logoutMenuLink = wrapper.find('#logout-link');
