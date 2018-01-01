@@ -53,11 +53,6 @@ body {
   border-radius: 5px;
 }
 
-#future-checkbox-label {
-  margin-left: 5px;
-  padding-right: 0.5rem;
-}
-
 .dropdown-menu {
   background-color: var(--gray);
 }
@@ -103,12 +98,38 @@ body {
   padding: 0.2em 0.55em 0.3em 0.55em;
 }
 
-.event-container {
+.fixed {
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  line-height: 1;
+}
+
+.filter-container {
   background-color: var(--teal);
   padding: 10px 30px 0 30px;
+}
+
+#filter-row {
+  border-bottom: solid 1px var(--powder);
+}
+
+.event-container {
+  background-color: var(--teal);
+  padding: 56px 30px 0 30px;
   -moz-box-shadow: 0 0 10px 0 var(--shadow);
   -webkit-box-shadow: 0 0 10px 0 var(--shadow);
   box-shadow: 0 0 10px 0 var(--shadow);
+}
+
+#filter-title {
+  font-size: 1.3em;
+  margin-right: 15px;
+}
+
+#future-checkbox-label {
+  margin-bottom: 0;
+  margin-left: 5px;
 }
 
 .event {

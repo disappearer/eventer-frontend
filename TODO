@@ -2,9 +2,14 @@
 ☐ split css into modules according to components
 
 App:
-  ☐ should pass loginCallback to Nav if no user
-  ☐ should pass logoutCallback to Nav if user logged in
+  ✔ state = {user} @done(18-01-01 09:24)
+  ✔ should pass loginCallback to Nav if no user @done(18-01-01 15:28)
+  ✔ should pass logoutCallback to Nav if user logged in @done(18-01-01 15:47)
+  ✘ has period state ('future', 'all') @cancelled(18-01-01 22:59)
+  ✘ should pass onCheckBoxChange callback to Nav @cancelled(18-01-01 22:59)
   ☐ should pass onJoinClick callback to Main
+  ✔ should pass eventsJoined when user logs in @done(18-01-01 16:50)
+  ✔ getUser and eventApi props @done(17-12-31 19:20)
 
 EventItem:
   ✔ onJoin prop @done(17-12-27 17:24)
@@ -24,5 +29,7 @@ Nav:
 EventList:
   ✔ eventsJoined prop @done(17-12-29 17:51)
   ✔ onJoinClick prop forwarded to EventItem @done(17-12-29 18:46)
+  ✔ events state @done(18-01-01 22:58)
+  ✔ checkbox change handler (updates events) @done(18-01-01 22:58)
 
 NewEventForm:
