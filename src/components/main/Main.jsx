@@ -1,33 +1,57 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import EventList from './event-list/EventList';
 import NewEventForm from './NewEventForm';
 
-const Main = ({ eventApi, getFunction, onJoinClick }) => {
+const Main = ({ eventApi, getFunction, onJoinClick, eventsJoined }) => {
+  const isAuthenticated = eventsJoined ? true : false;
   return (
-    <main className="container event-container" role="main">
+    <main role="main">
       <Switch>
+        <Route exact path="/" render={() => <Redirect to="/events" />} />
         <Route
           exact
           path="/events"
           render={({ match }) => (
             <EventList
-              getEvents={eventApi[getFunction].bind(eventApi)}
+              api={eventApi}
               onJoinClick={onJoinClick}
+              eventsJoined={eventsJoined}
             />
           )}
         />
-        <Route path="/events/new" component={NewEventForm} />
+        <PrivateRoute
+          path="/events/new"
+          isAuthenticated={isAuthenticated}
+          component={NewEventForm}
+        />
       </Switch>
     </main>
   );
 };
 
+const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      isAuthenticated ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{
+            pathname: '/events'
+          }}
+        />
+      )
+    }
+  />
+);
+
 Main.propTypes = {
   eventApi: PropTypes.object.isRequired,
-  getFunction: PropTypes.string.isRequired,
-  onJoinClick: PropTypes.func.isRequired
+  onJoinClick: PropTypes.func.isRequired,
+  eventsJoined: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default Main;
