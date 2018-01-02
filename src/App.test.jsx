@@ -5,6 +5,7 @@ import sinon from 'sinon';
 import { MemoryRouter } from 'react-router-dom';
 import App from './App';
 import Main from './components/main/Main';
+import Popup from 'react-popup';
 
 enzyme.configure({ adapter: new Adapter() });
 
@@ -40,6 +41,10 @@ const EventAPI = {
   ],
   future: function() {
     return Promise.resolve(this.events);
+  },
+  join: function(accessToken, eventId) {
+    console.log(accessToken, eventId);
+    return Promise.resolve({ user: {}, event: {} });
   }
 };
 
@@ -69,7 +74,8 @@ describe('App', () => {
     );
   });
 
-  it('should contain Nav and Main components', () => {
+  it('should contain Popup, Nav and Main components', () => {
+    expect(wrapper.find('Popup').length).toBe(1);
     expect(wrapper.find('Nav').length).toBe(1);
     expect(wrapper.find('Main').length).toBe(1);
   });
@@ -85,16 +91,16 @@ describe('App', () => {
     jest.useFakeTimers();
     wrapper.instance().loginPopout();
     expect(wrapper.state('isPoppedOut')).toEqual(true);
-    global.window.accessToken = 'bla';
+    global.window.accessToken = user.accessToken;
     jest.runAllTimers();
     expect(wrapper.state('isPoppedOut')).toEqual(false);
-    expect(wrapper.state('accessToken')).toEqual('bla');
+    expect(wrapper.state('accessToken')).toEqual(user.accessToken);
   });
 
   it('sets user when accessToken is set', async () => {
     jest.useFakeTimers();
     wrapper.instance().loginPopout();
-    global.window.accessToken = 'bla';
+    global.window.accessToken = user.accessToken;
     jest.runAllTimers();
     await wrapper.prop('getUser');
     expect(wrapper.state('user')).toEqual(user);
@@ -106,10 +112,10 @@ describe('App', () => {
     getUserStub.returns(Promise.resolve(user));
     wrapper = shallow(<App eventApi={EventAPI} getUser={getUserStub} />);
     wrapper.instance().loginPopout();
-    global.window.accessToken = 'bla';
+    global.window.accessToken = user.accessToken;
     jest.runAllTimers();
     expect(getUserStub.calledOnce).toBe(true);
-    expect(getUserStub.calledWith('bla')).toBe(true);
+    expect(getUserStub.calledWith(user.accessToken)).toBe(true);
   });
 
   it('passes login callback to Nav', () => {
@@ -122,11 +128,11 @@ describe('App', () => {
     jest.useFakeTimers();
     /* Log in */
     wrapper.instance().loginPopout();
-    global.window.accessToken = 'bla';
+    global.window.accessToken = user.accessToken;
     jest.runAllTimers();
     await wrapper.prop('getUser');
     expect(wrapper.state('user')).toEqual(user);
-    expect(wrapper.state('accessToken')).toEqual('bla');
+    expect(wrapper.state('accessToken')).toEqual(user.accessToken);
     /* Log out */
     wrapper.instance().logout();
     expect(wrapper.state('user')).toEqual(null);
@@ -143,12 +149,45 @@ describe('App', () => {
     jest.useFakeTimers();
     /* Log in */
     wrapper.instance().loginPopout();
-    global.window.accessToken = 'bla';
+    global.window.accessToken = user.accessToken;
     jest.runAllTimers();
     await wrapper.prop('getUser');
     wrapper.update();
     expect(wrapper.find('Main').prop('eventsJoined')).toEqual(
       user.eventsJoined
+    );
+  });
+
+  it('handleJoinClick calls event API method join with access token', async () => {
+    /* log in user */
+    jest.useFakeTimers();
+    wrapper.instance().loginPopout();
+    global.window.accessToken = user.accessToken;
+    jest.runAllTimers();
+    await wrapper.prop('getUser');
+    expect(wrapper.state('user')).toEqual(user);
+    /* join event */
+    const updatedUser = Object.assign({}, user);
+    updatedUser.eventsJoined = Array.from(user.eventsJoined.push('1'));
+    const joinStub = sinon
+      .stub(EventAPI, 'join')
+      .returns(Promise.resolve(updatedUser));
+    await wrapper.instance().handleJoinClick('1');
+    expect(joinStub.calledWith(user.accessToken, '1')).toBe(true);
+    expect(wrapper.state('user')).toEqual(updatedUser);
+  });
+
+  it('hadleJoinClick shows alert popup if user not logged in', () => {
+    const popupAlertStub = sinon.stub(Popup, 'alert');
+    wrapper.instance().handleJoinClick('1');
+    expect(popupAlertStub.calledWith('Please log in to join events.')).toEqual(
+      true
+    );
+  });
+
+  it('passes hadleJoinClick callback to Main', () => {
+    expect(wrapper.find('Main').prop('onJoinClick')).toEqual(
+      wrapper.instance().handleJoinClick
     );
   });
 });

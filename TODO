@@ -7,7 +7,7 @@ App:
   ✔ should pass logoutCallback to Nav if user logged in @done(18-01-01 15:47)
   ✘ has period state ('future', 'all') @cancelled(18-01-01 22:59)
   ✘ should pass onCheckBoxChange callback to Nav @cancelled(18-01-01 22:59)
-  ☐ should pass onJoinClick callback to Main
+  ✔ should pass onJoinClick callback to Main @done(18-01-02 13:39)
   ✔ should pass eventsJoined when user logs in @done(18-01-01 16:50)
   ✔ getUser and eventApi props @done(17-12-31 19:20)
 

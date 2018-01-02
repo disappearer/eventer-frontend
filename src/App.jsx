@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Popout from 'react-popout';
+import Popup from 'react-popup';
 import PropTypes from 'prop-types';
 import './App.css';
+import './Popup.css';
 import Nav from './components/nav/Nav';
 import Main from './components/main/Main';
 
@@ -19,6 +21,7 @@ class App extends Component {
     this.popoutClosed = this.popoutClosed.bind(this);
     this.setUser = this.setUser.bind(this);
     this.logout = this.logout.bind(this);
+    this.handleJoinClick = this.handleJoinClick.bind(this);
   }
 
   loginPopout() {
@@ -49,6 +52,14 @@ class App extends Component {
     this.setState({ user: null, accessToken: null });
   }
 
+  handleJoinClick(eventId) {
+    if (!this.state.accessToken) Popup.alert('Please log in to join events.');
+    else
+      this.props.eventApi.join(this.state.accessToken, eventId).then(user => {
+        this.setState({ user });
+      });
+  }
+
   render() {
     const isPoppedOut = this.state.isPoppedOut;
     const user = this.state.user;
@@ -56,6 +67,7 @@ class App extends Component {
     const eventsJoined = user ? user.eventsJoined : null;
     return (
       <div>
+        <Popup />
         {isPoppedOut && (
           <Popout
             url="http://eventer.lexlabs.com/api/auth/google"
@@ -70,7 +82,7 @@ class App extends Component {
         />
         <Main
           eventApi={this.props.eventApi}
-          onJoinClick={() => {}}
+          onJoinClick={this.handleJoinClick}
           eventsJoined={eventsJoined}
         />
       </div>
