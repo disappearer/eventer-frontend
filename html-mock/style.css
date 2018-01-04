@@ -104,6 +104,7 @@ body {
 }
 
 .event-container {
+  color: white;
   background-color: var(--teal);
   padding: 10px 30px 0 30px;
   -moz-box-shadow: 0 0 10px 0 var(--shadow);
@@ -116,7 +117,6 @@ body {
   border-bottom: solid 1px var(--powder);
   padding: 0;
   padding-bottom: 10px;
-  color: white;
 }
 
 .event:last-child {
@@ -167,4 +167,35 @@ body {
 
 .description {
   font-family: 'Source Sans Pro';
+}
+
+.new-event-container {
+  color: white;
+  background-color: var(--teal);
+  padding: 20px 30px 0 30px;
+  -moz-box-shadow: 0 0 10px 0 var(--shadow);
+  -webkit-box-shadow: 0 0 10px 0 var(--shadow);
+  box-shadow: 0 0 10px 0 var(--shadow);
+}
+
+.label {
+  text-align: right;
+}
+
+.input-row {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.form-input {
+  display: block;
+  overflow: hidden;
+}
+
+.form-input input {
+  width: 100%;
+}
+
+.form-input textarea {
+  width: 100%;
 }

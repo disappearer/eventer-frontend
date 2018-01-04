@@ -26,8 +26,7 @@ const Months = {
   11: 'December'
 };
 
-const EventItem = props => {
-  const event = props.event;
+const EventItem = ({ event, onJoinClick, joined }) => {
   const date = new Date(event.date);
   const minutes = date.getMinutes();
   const timeString = `${date.getHours()}:${
@@ -54,10 +53,10 @@ const EventItem = props => {
             <button
               className="btn btn-info btn-sm btn-join"
               onClick={() => {
-                props.onJoinClick(props.event.id);
+                if (!joined) onJoinClick(event.id);
               }}
             >
-              {props.joined ? 'Joined' : 'Join'}
+              {joined ? 'Joined' : 'Join'}
             </button>
           </div>
         </div>

@@ -37,10 +37,10 @@ const EventAPI = {
     }
   ],
   future: function() {
-    return Promise.resolve(this.events);
+    return Promise.resolve({ events: this.events });
   },
   all: function() {
-    return Promise.resolve(this.events.slice(1));
+    return Promise.resolve({ events: this.events.slice(1) });
   }
 };
 
@@ -56,7 +56,7 @@ describe('EventList', () => {
   it('should show "No events found." message if no events found', async () => {
     const wrapper = await mount(
       <EventList
-        api={{ future: () => Promise.resolve([]) }}
+        api={{ future: () => Promise.resolve({ events: [] }) }}
         onJoinClick={() => {}}
       />
     );

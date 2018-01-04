@@ -129,12 +129,21 @@ describe('EventItem', () => {
 
   it(`should have a onJoinClick prop callback
       which is called with event id`, () => {
+    wrapper = shallow(<EventItem event={event} onJoinClick={joinCallback} />);
+    const joinButton = wrapper.find('button');
+    joinButton.simulate('click');
+    expect(joinCallback.calledWith(event.id)).toEqual(true);
+    expect(joinCallback.calledOnce).toEqual(true);
+  });
+
+  it(`should do nothing if clicking on (already)
+      "Joined" button`, () => {
+    const joinCallback = sinon.spy();
     wrapper = shallow(
       <EventItem event={event} joined onJoinClick={joinCallback} />
     );
     const joinButton = wrapper.find('button');
     joinButton.simulate('click');
-    expect(joinCallback.calledWith(event.id)).toEqual(true);
-    expect(joinCallback.calledOnce).toEqual(true);
+    expect(joinCallback.called).toEqual(false);
   });
 });

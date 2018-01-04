@@ -43,7 +43,6 @@ const EventAPI = {
     return Promise.resolve(this.events);
   },
   join: function(accessToken, eventId) {
-    console.log(accessToken, eventId);
     return Promise.resolve({ user: {}, event: {} });
   }
 };
@@ -171,7 +170,7 @@ describe('App', () => {
     updatedUser.eventsJoined = Array.from(user.eventsJoined.push('1'));
     const joinStub = sinon
       .stub(EventAPI, 'join')
-      .returns(Promise.resolve(updatedUser));
+      .returns(Promise.resolve({ user: updatedUser }));
     await wrapper.instance().handleJoinClick('1');
     expect(joinStub.calledWith(user.accessToken, '1')).toBe(true);
     expect(wrapper.state('user')).toEqual(updatedUser);
@@ -189,5 +188,11 @@ describe('App', () => {
     expect(wrapper.find('Main').prop('onJoinClick')).toEqual(
       wrapper.instance().handleJoinClick
     );
+  });
+
+  it('passes accessToken to Main', () => {
+    const accessToken = 'randomString';
+    wrapper.setState({ accessToken });
+    expect(wrapper.find('Main').prop('accessToken')).toEqual(accessToken);
   });
 });

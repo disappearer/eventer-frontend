@@ -14,6 +14,7 @@ App:
 EventItem:
   ✔ onJoin prop @done(17-12-27 17:24)
   ✔ joined prop @done(17-12-27 16:01)
+  ☐ should get updated guest count on join
 
 Nav:
   ✔ Home link @done(17-12-28 18:10)
@@ -33,3 +34,15 @@ EventList:
   ✔ checkbox change handler (updates events) @done(18-01-01 22:58)
 
 NewEventForm:
+  ✔ design @done(18-01-02 15:40)
+  ✔ has controlled inputs @done(18-01-02 22:48)
+  ✔ submit button calls eventApi.create @done(18-01-02 22:48)
+  ✔ handleCreateClick gets created event and sets it in the state @done(18-01-03 11:31)
+  ✔ if there is an event set in state, component renders event info (should redirect to event details in the future) @done(18-01-03 11:31)
+  ☐ clears state on new event button (when event is set)
+
+API:
+  ✔ create event @done(18-01-03 18:17)
+  ✔ future @done(18-01-03 18:17)
+  ✔ all @done(18-01-03 18:17)
+  ✔ join @done(18-01-03 18:17)

@@ -55,9 +55,11 @@ class App extends Component {
   handleJoinClick(eventId) {
     if (!this.state.accessToken) Popup.alert('Please log in to join events.');
     else
-      this.props.eventApi.join(this.state.accessToken, eventId).then(user => {
-        this.setState({ user });
-      });
+      this.props.eventApi
+        .join(this.state.accessToken, eventId)
+        .then(response => {
+          this.setState({ user: response.user });
+        });
   }
 
   render() {
@@ -65,6 +67,7 @@ class App extends Component {
     const user = this.state.user;
     const userName = user ? user.authenticationInfo[0].name : null;
     const eventsJoined = user ? user.eventsJoined : null;
+    const accessToken = this.state.accessToken;
     return (
       <div>
         <Popup />
@@ -84,6 +87,7 @@ class App extends Component {
           eventApi={this.props.eventApi}
           onJoinClick={this.handleJoinClick}
           eventsJoined={eventsJoined}
+          accessToken={accessToken}
         />
       </div>
     );

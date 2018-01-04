@@ -10,16 +10,16 @@ class EventList extends Component {
   }
 
   componentDidMount() {
-    this.props.api.future().then(events => {
-      this.setState({ events });
+    this.props.api.future().then(response => {
+      this.setState({ events: response.events });
     });
   }
 
   handleCheckBoxChange(e) {
     const checked = e.target.checked;
     const method = checked ? 'future' : 'all';
-    this.props.api[method]().then(events => {
-      this.setState({ events });
+    this.props.api[method]().then(response => {
+      this.setState({ events: response.events });
     });
   }
 
