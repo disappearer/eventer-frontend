@@ -4,7 +4,13 @@ import PropTypes from 'prop-types';
 import EventList from './event-list/EventList';
 import NewEventForm from './NewEventForm';
 
-const Main = ({ eventApi, getFunction, onJoinClick, eventsJoined }) => {
+const Main = ({
+  eventApi,
+  getFunction,
+  onJoinClick,
+  eventsJoined,
+  accessToken
+}) => {
   const isAuthenticated = eventsJoined ? true : false;
   return (
     <main role="main">
@@ -25,6 +31,8 @@ const Main = ({ eventApi, getFunction, onJoinClick, eventsJoined }) => {
           path="/events/new"
           isAuthenticated={isAuthenticated}
           component={NewEventForm}
+          eventApi={eventApi}
+          accessToken={accessToken}
         />
       </Switch>
     </main>
@@ -36,7 +44,7 @@ const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => (
     {...rest}
     render={props =>
       isAuthenticated ? (
-        <Component {...props} />
+        <Component {...rest} />
       ) : (
         <Redirect
           to={{
@@ -50,6 +58,7 @@ const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => (
 
 Main.propTypes = {
   eventApi: PropTypes.object.isRequired,
+  accessToken: PropTypes.string,
   onJoinClick: PropTypes.func.isRequired,
   eventsJoined: PropTypes.arrayOf(PropTypes.string)
 };

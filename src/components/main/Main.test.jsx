@@ -11,7 +11,7 @@ describe('Main', () => {
     const wrapper = mount(
       <MemoryRouter initialEntries={['/events']}>
         <Main
-          eventApi={{ future: () => Promise.resolve([]) }}
+          eventApi={{ future: () => Promise.resolve({ events: [] }) }}
           getFunction="future"
           onJoinClick={() => {}}
         />
@@ -24,7 +24,7 @@ describe('Main', () => {
     const wrapper = mount(
       <MemoryRouter initialEntries={['/events/new']}>
         <Main
-          eventApi={{ future: () => Promise.resolve([]) }}
+          eventApi={{ future: () => Promise.resolve({ events: [] }) }}
           getFunction="future"
           onJoinClick={() => {}}
           eventsJoined={[]}
@@ -39,7 +39,7 @@ describe('Main', () => {
     const wrapper = mount(
       <MemoryRouter initialEntries={['/events']}>
         <Main
-          eventApi={{ future: () => Promise.resolve([]) }}
+          eventApi={{ future: () => Promise.resolve({ events: [] }) }}
           getFunction="future"
           onJoinClick={callback}
         />
@@ -53,7 +53,7 @@ describe('Main', () => {
     const wrapper = mount(
       <MemoryRouter initialEntries={['/events']}>
         <Main
-          eventApi={{ future: () => Promise.resolve([]) }}
+          eventApi={{ future: () => Promise.resolve({ events: [] }) }}
           getFunction="future"
           onJoinClick={() => {}}
           eventsJoined={eventsJoined}
@@ -62,6 +62,25 @@ describe('Main', () => {
     );
     expect(wrapper.find('EventList').prop('eventsJoined')).toEqual(
       eventsJoined
+    );
+  });
+
+  it('should forward prop.accessToken to NewEventForm', () => {
+    const eventsJoined = ['12', '45'];
+    const accessToken = 'randomString';
+    const wrapper = mount(
+      <MemoryRouter initialEntries={['/events/new']}>
+        <Main
+          eventApi={{ future: () => Promise.resolve({ events: [] }) }}
+          getFunction="future"
+          onJoinClick={() => {}}
+          eventsJoined={eventsJoined}
+          accessToken={accessToken}
+        />
+      </MemoryRouter>
+    );
+    expect(wrapper.find('NewEventForm').prop('accessToken')).toEqual(
+      accessToken
     );
   });
 });
