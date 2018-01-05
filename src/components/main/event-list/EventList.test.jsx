@@ -85,14 +85,31 @@ describe('EventList', () => {
     );
   });
 
-  it('should forward prop.onJoinClick to EventItems', async () => {
+  it(`handleEventJoin calls onJoinClick prop and
+      sets the updated event in state`, async () => {
+    const event = EventAPI.events[0];
+    const updatedEvent = { ...event, guestList: [...event.guestList, 246] };
+    const callback = () => Promise.resolve(updatedEvent);
+    const wrapper = await mount(
+      <EventList api={EventAPI} onJoinClick={callback} />
+    );
+    wrapper.update();
+    wrapper.instance().handleEventJoin(0);
+    await callback();
+    let updatedEvents = [updatedEvent, ...EventAPI.events.slice(1)];
+    expect(wrapper.state('events')).toEqual(updatedEvents);
+  });
+
+  it('should forward handleEventJoin to EventItems', async () => {
     const callback = () => {};
     const wrapper = await mount(
       <EventList api={EventAPI} onJoinClick={callback} />
     );
     wrapper.update();
     wrapper.find(EventItem).forEach(eventItem => {
-      expect(eventItem.prop('onJoinClick')).toEqual(callback);
+      expect(eventItem.prop('onJoinClick')).toEqual(
+        wrapper.instance().handleEventJoin
+      );
     });
   });
 

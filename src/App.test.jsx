@@ -157,7 +157,8 @@ describe('App', () => {
     );
   });
 
-  it('handleJoinClick calls event API method join with access token', async () => {
+  it(`handleJoinClick calls event API method join with access token,
+      updates user in the state and returns updated event promise`, async () => {
     /* log in user */
     jest.useFakeTimers();
     wrapper.instance().loginPopout();
@@ -166,12 +167,14 @@ describe('App', () => {
     await wrapper.prop('getUser');
     expect(wrapper.state('user')).toEqual(user);
     /* join event */
+    const updatedEvent = { someKey: 'someValue' };
     const updatedUser = Object.assign({}, user);
     updatedUser.eventsJoined = Array.from(user.eventsJoined.push('1'));
     const joinStub = sinon
       .stub(EventAPI, 'join')
-      .returns(Promise.resolve({ user: updatedUser }));
-    await wrapper.instance().handleJoinClick('1');
+      .returns(Promise.resolve({ user: updatedUser, event: updatedEvent }));
+    const event = await wrapper.instance().handleJoinClick('1');
+    expect(event).toEqual(updatedEvent);
     expect(joinStub.calledWith(user.accessToken, '1')).toBe(true);
     expect(wrapper.state('user')).toEqual(updatedUser);
   });

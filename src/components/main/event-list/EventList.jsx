@@ -7,6 +7,7 @@ class EventList extends Component {
     super(props);
     this.state = { events: [] };
     this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this);
+    this.handleEventJoin = this.handleEventJoin.bind(this);
   }
 
   componentDidMount() {
@@ -20,6 +21,17 @@ class EventList extends Component {
     const method = checked ? 'future' : 'all';
     this.props.api[method]().then(response => {
       this.setState({ events: response.events });
+    });
+  }
+
+  handleEventJoin(id) {
+    this.props.onJoinClick(id).then(updatedEvent => {
+      const events = this.state.events;
+      const updatedEvents = events.map(event => {
+        if (event.id === id) return updatedEvent;
+        return event;
+      });
+      this.setState({ events: updatedEvents });
     });
   }
 
@@ -50,7 +62,7 @@ class EventList extends Component {
                 <EventItem
                   key={event.id}
                   event={event}
-                  onJoinClick={this.props.onJoinClick}
+                  onJoinClick={this.handleEventJoin}
                   joined={
                     eventsJoined &&
                     eventsJoined.indexOf(event.id.toString()) > -1

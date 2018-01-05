@@ -55,10 +55,11 @@ class App extends Component {
   handleJoinClick(eventId) {
     if (!this.state.accessToken) Popup.alert('Please log in to join events.');
     else
-      this.props.eventApi
+      return this.props.eventApi
         .join(this.state.accessToken, eventId)
         .then(response => {
           this.setState({ user: response.user });
+          return response.event;
         });
   }
 
