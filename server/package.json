@@ -1,0 +1,23 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "node express server for eventer react frontend",
+  "scripts": {
+    "test": "jasmine",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "morgan": "^1.9.0"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-exec": "^3.0.0",
+    "jasmine": "^2.8.0",
+    "supertest": "^3.0.0"
+  }
+}
