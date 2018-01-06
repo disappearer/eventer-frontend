@@ -22,6 +22,8 @@ class App extends Component {
     this.setUser = this.setUser.bind(this);
     this.logout = this.logout.bind(this);
     this.handleJoinClick = this.handleJoinClick.bind(this);
+    this.setAccessTokenInSession = this.setAccessTokenInSession.bind(this);
+    this.getAccessTokenFromSession = this.getAccessTokenFromSession.bind(this);
   }
 
   loginPopout() {
@@ -39,6 +41,7 @@ class App extends Component {
   popoutClosed() {
     this.setState({ isPoppedOut: false, accessToken: window.accessToken });
     window.accessToken = null;
+    this.setAccessTokenInSession();
     this.setUser();
   }
 
@@ -46,6 +49,45 @@ class App extends Component {
     this.props.getUser(this.state.accessToken).then(result => {
       this.setState({ user: result.user });
     });
+  }
+
+  setAccessTokenInSession() {
+    fetch('/token', {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify({ token: this.state.accessToken })
+    }).catch(error => {
+      console.log(error);
+    });
+  }
+
+  getAccessTokenFromSession() {
+    fetch('/token', {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'GET',
+      credentials: 'include'
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        this.setState({ accessToken: json.accessToken });
+        if (json.accessToken) this.setUser();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  componentDidMount() {
+    this.getAccessTokenFromSession();
   }
 
   logout() {

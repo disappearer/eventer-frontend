@@ -158,7 +158,7 @@ describe('App', () => {
   });
 
   it(`handleJoinClick calls event API method join with access token,
-      updates user in the state and returns updated event promise`, async () => {
+      > updates user in the state and returns updated event promise`, async () => {
     /* log in user */
     jest.useFakeTimers();
     wrapper.instance().loginPopout();
@@ -179,7 +179,7 @@ describe('App', () => {
     expect(wrapper.state('user')).toEqual(updatedUser);
   });
 
-  it('hadleJoinClick shows alert popup if user not logged in', () => {
+  it('handleJoinClick shows alert popup if user not logged in', () => {
     const popupAlertStub = sinon.stub(Popup, 'alert');
     wrapper.instance().handleJoinClick('1');
     expect(popupAlertStub.calledWith('Please log in to join events.')).toEqual(
@@ -187,7 +187,7 @@ describe('App', () => {
     );
   });
 
-  it('passes hadleJoinClick callback to Main', () => {
+  it('passes handleJoinClick callback to Main', () => {
     expect(wrapper.find('Main').prop('onJoinClick')).toEqual(
       wrapper.instance().handleJoinClick
     );

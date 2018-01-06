@@ -1,6 +1,6 @@
 const api = {
   create: (accessToken, eventInfo) => {
-    const url = `http://eventer.lexlabs.com/api/events?access_token=${accessToken}`;
+    const url = `/api/events?access_token=${accessToken}`;
     const jsonData = JSON.stringify(eventInfo);
     return fetch(url, {
       headers: {
@@ -14,7 +14,7 @@ const api = {
     });
   },
   future: () => {
-    const url = `http://eventer.lexlabs.com/api/events/future`;
+    const url = `/api/events/future`;
     return fetch(url, {
       headers: {
         Accept: 'application/json',
@@ -26,7 +26,7 @@ const api = {
     });
   },
   all: () => {
-    const url = `http://eventer.lexlabs.com/api/events/all`;
+    const url = `/api/events/all`;
     return fetch(url, {
       method: 'GET'
     })
@@ -38,7 +38,7 @@ const api = {
       });
   },
   join: (accessToken, eventId) => {
-    const url = `http://eventer.lexlabs.com/api/events/${eventId}/join?access_token=${accessToken}`;
+    const url = `/api/events/${eventId}/join?access_token=${accessToken}`;
     return fetch(url, {
       headers: {
         Accept: 'application/json',
@@ -54,7 +54,7 @@ const api = {
 export default api;
 
 export function getUser(accessToken) {
-  const url = `http://eventer.lexlabs.com/api/profile?access_token=${accessToken}`;
+  const url = `/api/profile?access_token=${accessToken}`;
   const userPromise = fetch(url, {
     method: 'GET'
   }).then(function(response) {
