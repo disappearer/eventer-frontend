@@ -1,3 +1,5 @@
+# Eventer frontend project
+
 This is the frontend project for a demo web app that handles events (like Facebook does).
 
 If it is not yet, it should be served [here](http://eventer.lexlabs.tk) in the very near future.
