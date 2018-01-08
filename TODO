@@ -17,6 +17,7 @@ EventItem:
   ✔ onJoin prop @done(17-12-27 17:24)
   ✔ joined prop @done(17-12-27 16:01)
   ✔ should get updated guest count on join @done(18-01-07 19:31)
+  ☐ if year not current, show years in parentheses
 
 Nav:
   ✔ Home link @done(17-12-28 18:10)
@@ -34,6 +35,7 @@ EventList:
   ✔ onJoinClick prop forwarded to EventItem @done(17-12-29 18:46)
   ✔ events state @done(18-01-01 22:58)
   ✔ checkbox change handler (updates events) @done(18-01-01 22:58)
+  ☐ when new event is created it should update eventsJoined
 
 NewEventForm:
   ✔ design @done(18-01-02 15:40)

@@ -96,7 +96,7 @@ class App extends Component {
         <Popup />
         {isPoppedOut && (
           <Popout
-            url="http://eventer.lexlabs.com/api/auth/google"
+            url="/api/auth/google"
             title="Log in"
             onClosing={this.popoutClosed}
           />
