@@ -1,0 +1,12 @@
+html-mock
+node_modules
+public
+src
+.*
+TODO
+README.md
+*.json
+server/node_modules
+server/spec
+server/gruntfile.js
+server/TODO
