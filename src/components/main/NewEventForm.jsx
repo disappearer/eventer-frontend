@@ -34,7 +34,7 @@ class NewEventForm extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleCreateClick = this.handleCreateClick.bind(this);
-    this.clearEvent = this.clearEvent.bind(this);
+    this.clearState = this.clearState.bind(this);
   }
 
   handleInputChange(event) {
@@ -58,8 +58,14 @@ class NewEventForm extends Component {
     });
   }
 
-  clearEvent() {
-    this.setState({ event: null });
+  clearState() {
+    this.setState({
+      event: null,
+      title: '',
+      location: '',
+      description: '',
+      date: new Date()
+    });
   }
 
   render() {
@@ -102,7 +108,7 @@ class NewEventForm extends Component {
               <button
                 className="btn btn-info btn-sm"
                 type="button"
-                onClick={this.clearEvent}
+                onClick={this.clearState}
               >
                 New Event
               </button>

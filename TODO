@@ -11,6 +11,7 @@ App:
   ✔ should pass eventsJoined when user logs in @done(18-01-01 16:50)
   ✔ getUser and eventApi props @done(17-12-31 19:20)
   ✔ logout clears accessToken @done(18-01-07 19:57)
+  ☐ debug popout closing
 
 EventItem:
   ✔ onJoin prop @done(17-12-27 17:24)
@@ -40,7 +41,7 @@ NewEventForm:
   ✔ submit button calls eventApi.create @done(18-01-02 22:48)
   ✔ handleCreateClick gets created event and sets it in the state @done(18-01-03 11:31)
   ✔ if there is an event set in state, component renders event info (should redirect to event details in the future) @done(18-01-03 11:31)
-  ☐ clears state on new event button (when event is set)
+  ✔ clears state on new event button click(when event is set) @done(18-01-08 12:42)
 
 API:
   ✔ create event @done(18-01-03 18:17)

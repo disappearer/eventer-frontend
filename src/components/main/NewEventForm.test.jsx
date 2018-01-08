@@ -91,10 +91,16 @@ describe('NewEventForm', () => {
   });
 
   it(`when event is set in state, it renders a "New Event" button
-      that clears event from state`, () => {
+      that clears the state`, () => {
     wrapper.setState({ event });
     const newEventButton = wrapper.find('button');
     newEventButton.simulate('click');
     expect(wrapper.state('event')).toBeNull();
+    expect(wrapper.state('title')).toEqual('');
+    expect(wrapper.state('location')).toEqual('');
+    expect(wrapper.state('description')).toEqual('');
+    expect(wrapper.state('date').valueOf()).toBeGreaterThan(
+      new Date().valueOf() - 5000
+    );
   });
 });
