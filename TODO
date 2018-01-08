@@ -10,11 +10,12 @@ App:
   ✔ should pass onJoinClick callback to Main @done(18-01-02 13:39)
   ✔ should pass eventsJoined when user logs in @done(18-01-01 16:50)
   ✔ getUser and eventApi props @done(17-12-31 19:20)
+  ✔ logout clears accessToken @done(18-01-07 19:57)
 
 EventItem:
   ✔ onJoin prop @done(17-12-27 17:24)
   ✔ joined prop @done(17-12-27 16:01)
-  ☐ should get updated guest count on join
+  ✔ should get updated guest count on join @done(18-01-07 19:31)
 
 Nav:
   ✔ Home link @done(17-12-28 18:10)

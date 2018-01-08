@@ -47,6 +47,13 @@ const EventAPI = {
   }
 };
 
+const SessionAPI = {
+  setToken: accessToken => {
+    Promise.resolve();
+  },
+  getToken: () => Promise.resolve({ accessToken: null })
+};
+
 const user = {
   id: 246,
   accessToken: 'randomString2',
@@ -68,6 +75,7 @@ describe('App', () => {
     wrapper = shallow(
       <App
         eventApi={EventAPI}
+        sessionApi={SessionAPI}
         getUser={() => Promise.resolve({ user: user })}
       />
     );
@@ -109,7 +117,9 @@ describe('App', () => {
     jest.useFakeTimers();
     const getUserStub = sinon.stub();
     getUserStub.returns(Promise.resolve(user));
-    wrapper = shallow(<App eventApi={EventAPI} getUser={getUserStub} />);
+    wrapper = shallow(
+      <App eventApi={EventAPI} getUser={getUserStub} sessionApi={SessionAPI} />
+    );
     wrapper.instance().loginPopout();
     global.window.accessToken = user.accessToken;
     jest.runAllTimers();
@@ -197,5 +207,44 @@ describe('App', () => {
     const accessToken = 'randomString';
     wrapper.setState({ accessToken });
     expect(wrapper.find('Main').prop('accessToken')).toEqual(accessToken);
+  });
+
+  it('calls sessionApi.setToken(state.accessToken) when user logs in', async () => {
+    const setTokenStub = sinon.stub(SessionAPI, 'setToken');
+    jest.useFakeTimers();
+    /* Log in */
+    wrapper.instance().loginPopout();
+    global.window.accessToken = user.accessToken;
+    jest.runAllTimers();
+    await wrapper.prop('getUser');
+    wrapper.update();
+    expect(setTokenStub.calledWith(user.accessToken)).toBe(true);
+    expect(setTokenStub.calledOnce).toBe(true);
+    setTokenStub.restore();
+  });
+
+  it('calls sessionApi.getToken() and sets token in the state when component loads', async () => {
+    const getTokenStub = sinon
+      .stub(SessionAPI, 'getToken')
+      .returns(Promise.resolve({ accessToken: user.accessToken }));
+    wrapper = shallow(
+      <App
+        eventApi={EventAPI}
+        sessionApi={SessionAPI}
+        getUser={() => Promise.resolve({ user: user })}
+      />
+    );
+    expect(getTokenStub.calledOnce).toBe(true);
+    await getTokenStub();
+    expect(wrapper.state('accessToken')).toEqual(user.accessToken);
+    getTokenStub.restore();
+  });
+
+  it('clears accessToken in session when user logs out', async () => {
+    const setTokenStub = sinon.stub(SessionAPI, 'setToken');
+    wrapper.instance().logout();
+    expect(setTokenStub.calledWith(null)).toBe(true);
+    expect(setTokenStub.calledOnce).toBe(true);
+    setTokenStub.restore();
   });
 });

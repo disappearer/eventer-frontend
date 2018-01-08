@@ -26,6 +26,10 @@ class App extends Component {
     this.getAccessTokenFromSession = this.getAccessTokenFromSession.bind(this);
   }
 
+  componentDidMount() {
+    this.getAccessTokenFromSession();
+  }
+
   loginPopout() {
     this.setState({ isPoppedOut: true });
     this.checkTokenInterval = setInterval(this.checkToken, 500);
@@ -52,31 +56,12 @@ class App extends Component {
   }
 
   setAccessTokenInSession() {
-    fetch('/token', {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      credentials: 'include',
-      body: JSON.stringify({ token: this.state.accessToken })
-    }).catch(error => {
-      console.log(error);
-    });
+    this.props.sessionApi.setToken(this.state.accessToken);
   }
 
   getAccessTokenFromSession() {
-    fetch('/token', {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: 'GET',
-      credentials: 'include'
-    })
-      .then(response => {
-        return response.json();
-      })
+    this.props.sessionApi
+      .getToken()
       .then(json => {
         this.setState({ accessToken: json.accessToken });
         if (json.accessToken) this.setUser();
@@ -86,12 +71,9 @@ class App extends Component {
       });
   }
 
-  componentDidMount() {
-    this.getAccessTokenFromSession();
-  }
-
   logout() {
     this.setState({ user: null, accessToken: null });
+    this.props.sessionApi.setToken(null);
   }
 
   handleJoinClick(eventId) {
@@ -106,11 +88,9 @@ class App extends Component {
   }
 
   render() {
-    const isPoppedOut = this.state.isPoppedOut;
-    const user = this.state.user;
+    const { isPoppedOut, user, accessToken } = this.state;
     const userName = user ? user.authenticationInfo[0].name : null;
     const eventsJoined = user ? user.eventsJoined : null;
-    const accessToken = this.state.accessToken;
     return (
       <div>
         <Popup />
@@ -139,7 +119,8 @@ class App extends Component {
 
 App.propTypes = {
   eventApi: PropTypes.object.isRequired,
-  getUser: PropTypes.func.isRequired
+  getUser: PropTypes.func.isRequired,
+  sessionApi: PropTypes.object.isRequired
 };
 
 export default App;

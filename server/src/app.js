@@ -21,13 +21,12 @@ app.use(
 app.use(express.static(path.resolve(__dirname, '../..', 'build')));
 
 app.post('/token', (req, res) => {
-  const token = req.body.token;
-  req.session.token = token;
+  req.session.accessToken = req.body.accessToken;
   res.status(200).send('Token set successfully.');
 });
 
 app.get('/token', (req, res) => {
-  res.status(200).json({ accessToken: req.session.token });
+  res.status(200).json({ accessToken: req.session.accessToken });
 });
 
 // Always return the main index.html, so react-router render the route in the client

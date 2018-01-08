@@ -7,7 +7,7 @@ describe('app', () => {
   it('accepts POST to "/token" and sets access token in session', done => {
     agent
       .post('/token')
-      .send({ token })
+      .send({ accessToken: token })
       .then(res => {
         expect(res.status).toEqual(200);
         expect(res.text).toEqual('Token set successfully.');
