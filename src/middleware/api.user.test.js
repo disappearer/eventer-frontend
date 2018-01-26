@@ -50,7 +50,6 @@ describe('Current user fetching', () => {
     });
     const { next, invoke } = createApiMiddleware();
     const action = actions.fetchUser(ACCESS_TOKEN);
-    const [requestType, ,] = action.apiCall.types;
     invoke(action);
     expect(next.calledWith({ type: actions.FETCH_USER_REQUEST })).toBe(true);
   });

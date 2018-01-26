@@ -64,7 +64,6 @@ describe('Event fetching', () => {
     });
     const { next, invoke } = createApiMiddleware();
     const action = actions.fetchEvents('all');
-    const [requestType, ,] = action.apiCall.types;
     invoke(action);
     expect(next.calledWith({ type: actions.FETCH_EVENTS_REQUEST })).toBe(true);
   });

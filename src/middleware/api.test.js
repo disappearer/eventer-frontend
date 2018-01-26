@@ -1,12 +1,6 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
 import sinon from 'sinon';
-import * as actions from '../actions';
 import api from './api';
-
-const middlewares = [thunk, api];
-const mockStore = configureMockStore(middlewares);
 
 const createApiMiddleware = () => {
   const store = {
