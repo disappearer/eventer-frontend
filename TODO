@@ -1,5 +1,7 @@
 ☐ render brand svg from font
 ☐ split css into modules according to components
+☐ cross-fetch ?
+☐ reorganize server
 
 App:
   ✔ state = {user} @done(18-01-01 09:24)
@@ -17,7 +19,7 @@ EventItem:
   ✔ onJoin prop @done(17-12-27 17:24)
   ✔ joined prop @done(17-12-27 16:01)
   ✔ should get updated guest count on join @done(18-01-07 19:31)
-  ☐ if year not current, show years in parentheses
+  ☐ if year not current, show it in parentheses
   ☐ show creator name
 
 Nav:
