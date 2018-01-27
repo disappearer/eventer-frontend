@@ -19,3 +19,15 @@ export const fetchUser = accessToken => ({
     endpoint: `/profile?access_token=${accessToken}`
   }
 });
+
+export const CREATE_EVENT_REQUEST = 'CREATE_EVENT_REQUEST';
+export const CREATE_EVENT_SUCCESS = 'CREATE_EVENT_SUCCESS';
+export const CREATE_EVENT_FAIL = 'CREATE_EVENT_FAIL';
+
+export const createEvent = (accessToken, eventInfo) => ({
+  apiCall: {
+    types: [CREATE_EVENT_REQUEST, CREATE_EVENT_SUCCESS, CREATE_EVENT_FAIL],
+    endpoint: `/events?access_token=${accessToken}`,
+    payload: eventInfo
+  }
+});
