@@ -13,17 +13,14 @@ const createApiMiddleware = () => {
     getState: sinon.spy(),
     dispatch: sinon.spy()
   };
-
   const next = sinon.spy();
-
   const invoke = action => api(store)(next)(action);
-
   return { store, next, invoke };
 };
 
 const ACCESS_TOKEN = 'randomString';
 
-const user = {
+const USER = {
   id: 246,
   accessToken: 'randomString2',
   authenticationInfo: [
@@ -56,13 +53,13 @@ describe('Current user fetching', () => {
 
   it('creates success action when fetching user profile has been done', done => {
     fetchMock.getOnce(`/api/profile?access_token=${ACCESS_TOKEN}`, {
-      body: { user },
+      body: { user: USER },
       headers: { 'content-type': 'application/json' }
     });
 
     const expectedActions = [
       { type: actions.FETCH_USER_REQUEST },
-      { type: actions.FETCH_USER_SUCCESS, body: { user } }
+      { type: actions.FETCH_USER_SUCCESS, body: { user: USER } }
     ];
 
     const store = mockStore({ user: null });

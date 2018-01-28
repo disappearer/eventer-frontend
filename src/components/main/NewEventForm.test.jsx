@@ -6,28 +6,28 @@ import NewEventForm from './NewEventForm';
 
 enzyme.configure({ adapter: new Adapter() });
 
+const EVENT = {
+  id: 0,
+  creatorId: 123,
+  title: 'Some Event 1',
+  description: 'Some random event with id 0',
+  date: '2017-10-15T20:00:00.000Z',
+  location: 'Somewhere',
+  guestList: [123]
+};
+
+const EVENT_API = {
+  create: () => Promise.resolve(EVENT)
+};
+
+const ACCESS_TOKEN = 'randomString';
+
 describe('NewEventForm', () => {
   let wrapper;
 
-  const event = {
-    id: 0,
-    creatorId: 123,
-    title: 'Some Event 1',
-    description: 'Some random event with id 0',
-    date: '2017-10-15T20:00:00.000Z',
-    location: 'Somewhere',
-    guestList: [123]
-  };
-
-  const EventAPI = {
-    create: () => Promise.resolve(event)
-  };
-
-  const accessToken = 'randomString';
-
   beforeEach(() => {
     wrapper = shallow(
-      <NewEventForm eventApi={EventAPI} accessToken={accessToken} />
+      <NewEventForm eventApi={EVENT_API} accessToken={ACCESS_TOKEN} />
     );
   });
 
@@ -73,26 +73,26 @@ describe('NewEventForm', () => {
     };
     wrapper.setState(state);
     const joinStub = sinon
-      .stub(EventAPI, 'create')
-      .returns(Promise.resolve({ event }));
+      .stub(EVENT_API, 'create')
+      .returns(Promise.resolve({ event: EVENT }));
     const button = wrapper.find('button');
     button.simulate('click');
-    expect(joinStub.calledWith(accessToken, state)).toBe(true);
+    expect(joinStub.calledWith(ACCESS_TOKEN, state)).toBe(true);
     await joinStub();
-    expect(wrapper.state('event')).toEqual(event);
+    expect(wrapper.state('event')).toEqual(EVENT);
   });
 
   it(`when event is created (in the state) hides form 
       and renders created event data`, () => {
     expect(wrapper.find('#new-event-form').length).toEqual(1);
-    wrapper.setState({ event });
+    wrapper.setState({ event: EVENT });
     expect(wrapper.find('#new-event-form').length).toEqual(0);
     expect(wrapper.find('#new-event-data').length).toEqual(1);
   });
 
   it(`when event is set in state, it renders a "New Event" button
       that clears the state`, () => {
-    wrapper.setState({ event });
+    wrapper.setState({ event: EVENT });
     const newEventButton = wrapper.find('button');
     newEventButton.simulate('click');
     expect(wrapper.state('event')).toBeNull();

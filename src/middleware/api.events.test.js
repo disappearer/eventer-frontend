@@ -13,15 +13,12 @@ const createApiMiddleware = () => {
     getState: sinon.spy(),
     dispatch: sinon.spy()
   };
-
   const next = sinon.spy();
-
   const invoke = action => api(store)(next)(action);
-
   return { store, next, invoke };
 };
 
-const eventArray = [
+const EVENT_ARRAY = [
   {
     id: 0,
     creatorId: 123,
@@ -70,13 +67,13 @@ describe('Event fetching', () => {
 
   it('creates success action when fetching all events has been done', done => {
     fetchMock.getOnce('/api/events/all', {
-      body: { events: eventArray },
+      body: { events: EVENT_ARRAY },
       headers: { 'content-type': 'application/json' }
     });
 
     const expectedActions = [
       { type: actions.FETCH_EVENTS_REQUEST },
-      { type: actions.FETCH_EVENTS_SUCCESS, body: { events: eventArray } }
+      { type: actions.FETCH_EVENTS_SUCCESS, body: { events: EVENT_ARRAY } }
     ];
 
     const store = mockStore({ events: [] });
@@ -90,13 +87,13 @@ describe('Event fetching', () => {
 
   it('creates success action when fetching future events has been done', done => {
     fetchMock.getOnce('/api/events/future', {
-      body: { events: eventArray },
+      body: { events: EVENT_ARRAY },
       headers: { 'content-type': 'application/json' }
     });
 
     const expectedActions = [
       { type: actions.FETCH_EVENTS_REQUEST },
-      { type: actions.FETCH_EVENTS_SUCCESS, body: { events: eventArray } }
+      { type: actions.FETCH_EVENTS_SUCCESS, body: { events: EVENT_ARRAY } }
     ];
 
     const store = mockStore({ events: [] });

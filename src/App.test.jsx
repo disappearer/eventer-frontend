@@ -1,15 +1,13 @@
 import React from 'react';
-import enzyme, { shallow, mount } from 'enzyme';
+import enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import sinon from 'sinon';
-import { MemoryRouter } from 'react-router-dom';
 import App from './App';
-import Main from './components/main/Main';
 import Popup from 'react-popup';
 
 enzyme.configure({ adapter: new Adapter() });
 
-const EventAPI = {
+const EVENT_API = {
   events: [
     {
       id: 0,
@@ -47,7 +45,7 @@ const EventAPI = {
   }
 };
 
-const SessionAPI = {
+const SESSION_API = {
   setToken: accessToken => {
     Promise.resolve();
   },
@@ -74,8 +72,8 @@ describe('App', () => {
   beforeEach(() => {
     wrapper = shallow(
       <App
-        eventApi={EventAPI}
-        sessionApi={SessionAPI}
+        eventApi={EVENT_API}
+        sessionApi={SESSION_API}
         getUser={() => Promise.resolve({ user: user })}
       />
     );
@@ -118,7 +116,11 @@ describe('App', () => {
     const getUserStub = sinon.stub();
     getUserStub.returns(Promise.resolve(user));
     wrapper = shallow(
-      <App eventApi={EventAPI} getUser={getUserStub} sessionApi={SessionAPI} />
+      <App
+        eventApi={EVENT_API}
+        getUser={getUserStub}
+        sessionApi={SESSION_API}
+      />
     );
     wrapper.instance().loginPopout();
     global.window.accessToken = user.accessToken;
@@ -181,7 +183,7 @@ describe('App', () => {
     const updatedUser = Object.assign({}, user);
     updatedUser.eventsJoined = Array.from(user.eventsJoined.push('1'));
     const joinStub = sinon
-      .stub(EventAPI, 'join')
+      .stub(EVENT_API, 'join')
       .returns(Promise.resolve({ user: updatedUser, event: updatedEvent }));
     const event = await wrapper.instance().handleJoinClick('1');
     expect(event).toEqual(updatedEvent);
@@ -210,7 +212,7 @@ describe('App', () => {
   });
 
   it('calls sessionApi.setToken(state.accessToken) when user logs in', async () => {
-    const setTokenStub = sinon.stub(SessionAPI, 'setToken');
+    const setTokenStub = sinon.stub(SESSION_API, 'setToken');
     jest.useFakeTimers();
     /* Log in */
     wrapper.instance().loginPopout();
@@ -225,12 +227,12 @@ describe('App', () => {
 
   it('calls sessionApi.getToken() and sets token in the state when component loads', async () => {
     const getTokenStub = sinon
-      .stub(SessionAPI, 'getToken')
+      .stub(SESSION_API, 'getToken')
       .returns(Promise.resolve({ accessToken: user.accessToken }));
     wrapper = shallow(
       <App
-        eventApi={EventAPI}
-        sessionApi={SessionAPI}
+        eventApi={EVENT_API}
+        sessionApi={SESSION_API}
         getUser={() => Promise.resolve({ user: user })}
       />
     );
@@ -241,7 +243,7 @@ describe('App', () => {
   });
 
   it('clears accessToken in session when user logs out', async () => {
-    const setTokenStub = sinon.stub(SessionAPI, 'setToken');
+    const setTokenStub = sinon.stub(SESSION_API, 'setToken');
     wrapper.instance().logout();
     expect(setTokenStub.calledWith(null)).toBe(true);
     expect(setTokenStub.calledOnce).toBe(true);

@@ -3,35 +3,11 @@ import enzyme, { shallow } from 'enzyme';
 import sinon from 'sinon';
 import Adapter from 'enzyme-adapter-react-16';
 import EventItem from './EventItem';
+import { WEEKDAYS, MONTHS } from '../date.helper';
 
 enzyme.configure({ adapter: new Adapter() });
 
-const Weekdays = {
-  1: 'Monday',
-  2: 'Tuesday',
-  3: 'Wednesday',
-  4: 'Thursday',
-  5: 'Friday',
-  6: 'Saturday',
-  0: 'Sunday'
-};
-
-const Months = {
-  0: 'January',
-  1: 'February',
-  2: 'March',
-  3: 'April',
-  4: 'May',
-  5: 'June',
-  6: 'July',
-  7: 'August',
-  8: 'September',
-  9: 'October',
-  10: 'November',
-  11: 'December'
-};
-
-const event = {
+const EVENT = {
   id: 0,
   creatorId: 123,
   title: 'Some Event 1',
@@ -46,7 +22,7 @@ describe('EventItem', () => {
   let joinCallback = sinon.spy();
 
   beforeEach(() => {
-    wrapper = shallow(<EventItem event={event} onJoinClick={joinCallback} />);
+    wrapper = shallow(<EventItem event={EVENT} onJoinClick={joinCallback} />);
   });
 
   it('should have a css class "event"', () => {
@@ -59,29 +35,29 @@ describe('EventItem', () => {
         .find('.title')
         .at(0)
         .text()
-    ).toContain(event.title);
+    ).toContain(EVENT.title);
     expect(
       wrapper
         .find('.description')
         .at(0)
         .text()
-    ).toContain(event.description);
+    ).toContain(EVENT.description);
     expect(
       wrapper
         .find('.location')
         .at(0)
         .text()
-    ).toContain(`@ ${event.location}`);
+    ).toContain(`@ ${EVENT.location}`);
     expect(
       wrapper
         .find('.guests')
         .at(0)
         .text()
-    ).toContain(`Guests: ${event.guestList.length}`);
+    ).toContain(`Guests: ${EVENT.guestList.length}`);
   });
 
   it('it should show day (of week), date and time', () => {
-    const date = new Date(event.date);
+    const date = new Date(EVENT.date);
     const minutes = date.getMinutes();
     const timeString = `${date.getHours()}:${
       minutes < 10 ? `0${minutes}` : minutes
@@ -91,13 +67,13 @@ describe('EventItem', () => {
         .find('.weekday')
         .at(0)
         .text()
-    ).toContain(Weekdays[date.getDay()]);
+    ).toContain(WEEKDAYS[date.getDay()]);
     expect(
       wrapper
         .find('.date')
         .at(0)
         .text()
-    ).toContain(`${Months[date.getMonth()]} ${date.getDate()}`);
+    ).toContain(`${MONTHS[date.getMonth()]} ${date.getDate()}`);
     expect(
       wrapper
         .find('.time')
@@ -117,7 +93,7 @@ describe('EventItem', () => {
 
   it('should have a "Joined" button if "joined" prop is true', () => {
     wrapper = shallow(
-      <EventItem event={event} joined onJoinClick={joinCallback} />
+      <EventItem event={EVENT} joined onJoinClick={joinCallback} />
     );
     expect(
       wrapper
@@ -129,10 +105,10 @@ describe('EventItem', () => {
 
   it(`should have a onJoinClick prop callback
       which is called with event id`, () => {
-    wrapper = shallow(<EventItem event={event} onJoinClick={joinCallback} />);
+    wrapper = shallow(<EventItem event={EVENT} onJoinClick={joinCallback} />);
     const joinButton = wrapper.find('button');
     joinButton.simulate('click');
-    expect(joinCallback.calledWith(event.id)).toEqual(true);
+    expect(joinCallback.calledWith(EVENT.id)).toEqual(true);
     expect(joinCallback.calledOnce).toEqual(true);
   });
 
@@ -140,7 +116,7 @@ describe('EventItem', () => {
       "Joined" button`, () => {
     const joinCallback = sinon.spy();
     wrapper = shallow(
-      <EventItem event={event} joined onJoinClick={joinCallback} />
+      <EventItem event={EVENT} joined onJoinClick={joinCallback} />
     );
     const joinButton = wrapper.find('button');
     joinButton.simulate('click');

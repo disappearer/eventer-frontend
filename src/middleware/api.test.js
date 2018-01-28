@@ -7,11 +7,8 @@ const createApiMiddleware = () => {
     getState: sinon.spy(),
     dispatch: sinon.spy()
   };
-
   const next = sinon.spy();
-
   const invoke = action => api(store)(next)(action);
-
   return { store, next, invoke };
 };
 

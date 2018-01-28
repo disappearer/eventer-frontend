@@ -1,31 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DateTimePicker from 'react-datetime-picker';
-
-const Weekdays = {
-  1: 'Monday',
-  2: 'Tuesday',
-  3: 'Wednesday',
-  4: 'Thursday',
-  5: 'Friday',
-  6: 'Saturday',
-  0: 'Sunday'
-};
-
-const Months = {
-  0: 'January',
-  1: 'February',
-  2: 'March',
-  3: 'April',
-  4: 'May',
-  5: 'June',
-  6: 'July',
-  7: 'August',
-  8: 'September',
-  9: 'October',
-  10: 'November',
-  11: 'December'
-};
+import { WEEKDAYS, MONTHS } from './date.helper';
 
 class NewEventForm extends Component {
   constructor(props) {
@@ -87,9 +63,9 @@ class NewEventForm extends Component {
             </div>
             <div className="row event">
               <div className="col-md-2">
-                <div className="weekday">{Weekdays[date.getDay()]}</div>
+                <div className="weekday">{WEEKDAYS[date.getDay()]}</div>
                 <div className="date">{`${
-                  Months[date.getMonth()]
+                  MONTHS[date.getMonth()]
                 } ${date.getDate()}`}</div>
                 <div className="time">{timeString}</div>
               </div>
