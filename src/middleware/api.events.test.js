@@ -1,22 +1,11 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
-import sinon from 'sinon';
 import * as actions from '../actions';
 import api from './api';
 
 const middlewares = [thunk, api];
 const mockStore = configureMockStore(middlewares);
-
-const createApiMiddleware = () => {
-  const store = {
-    getState: sinon.spy(),
-    dispatch: sinon.spy()
-  };
-  const next = sinon.spy();
-  const invoke = action => api(store)(next)(action);
-  return { store, next, invoke };
-};
 
 const EVENT_ARRAY = [
   {
@@ -50,19 +39,7 @@ const EVENT_ARRAY = [
 
 describe('Event fetching', () => {
   afterEach(() => {
-    fetchMock.reset();
     fetchMock.restore();
-  });
-
-  it('calls next with request action', () => {
-    fetchMock.get('*', {
-      body: { hello: 'world' },
-      headers: { 'content-type': 'application/json' }
-    });
-    const { next, invoke } = createApiMiddleware();
-    const action = actions.fetchEvents('all');
-    invoke(action);
-    expect(next.calledWith({ type: actions.FETCH_EVENTS_REQUEST })).toBe(true);
   });
 
   it('creates success action when fetching all events has been done', done => {

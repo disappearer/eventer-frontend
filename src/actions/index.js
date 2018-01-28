@@ -31,3 +31,15 @@ export const createEvent = (accessToken, eventInfo) => ({
     payload: eventInfo
   }
 });
+
+export const JOIN_EVENT_REQUEST = 'JOIN_EVENT_REQUEST';
+export const JOIN_EVENT_SUCCESS = 'JOIN_EVENT_SUCCESS';
+export const JOIN_EVENT_FAIL = 'JOIN_EVENT_FAIL';
+
+export const joinEvent = (accessToken, eventId) => ({
+  apiCall: {
+    types: [JOIN_EVENT_REQUEST, JOIN_EVENT_SUCCESS, JOIN_EVENT_FAIL],
+    endpoint: `/events/${eventId}/join?access_token=${accessToken}`,
+    payload: {}
+  }
+});
